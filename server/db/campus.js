@@ -1,14 +1,14 @@
-import db from './database'
-import {Sequelize} from 'sequelize'
+const db = require('./database')
+const Sequelize = require('sequelize')
 
-const Campus = db.define(campus, {
+const Campus = db.define('campus', {
     name:{
         type: Sequelize.STRING,
         allowNull: false,
     },
     imageUrl:{
         type: Sequelize.STRING,
-        default: 'https://www.seekpng.com/png/detail/897-8977124_png-file-svg-campus-icon-png.png'
+        defaultValue: 'https://www.seekpng.com/png/detail/897-8977124_png-file-svg-campus-icon-png.png'
     },
     address:{
         type: Sequelize.STRING,
@@ -19,4 +19,4 @@ const Campus = db.define(campus, {
     }
 })
 
-export default Campus
+module.exports= Campus

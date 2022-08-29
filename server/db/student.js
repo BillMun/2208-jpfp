@@ -1,5 +1,5 @@
-import db from './database'
-import { Sequelize } from 'sequelize'
+const db = require('./database')
+const Sequelize = require('sequelize')
 
 
 const Student = db.define('student', {
@@ -20,15 +20,16 @@ const Student = db.define('student', {
     },
     imageUrl: {
         type: Sequelize.STRING,
-        default: 'https://www.nmeaf.org/sites/default/themes/nichols/images/icon-student.png'
+        defaultValue: 'https://www.nmeaf.org/sites/default/themes/nichols/images/icon-student.png'
     },
     gpa:{
         type: Sequelize.DECIMAL,
+        allowNull: false,
         validate:{
-            Min: 0,
-            Max: 4.0
+            min: 0,
+            max: 4.0
         }
     }
 })
 
-export default Student
+module.exports=Student
