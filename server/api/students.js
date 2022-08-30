@@ -4,7 +4,11 @@ const {Campus, Student} = require('../db')
 //get /api/students
 router.get('/', async (req,res,next)=>{
     try{
-        const students = await Student.findAll()
+        const students = await Student.findAll({
+            include:{
+                model:Campus
+            }
+        })
         res.send(students)
     }
     catch(err){

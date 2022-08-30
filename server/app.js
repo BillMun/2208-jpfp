@@ -17,6 +17,9 @@ app.use(express.urlencoded({extended: true}))
 
 app.use('/api', require('./api'))
 
+app.get('*', (req, res, next) => {
+    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'))
+  })
 
 
 module.exports = app;

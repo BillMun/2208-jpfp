@@ -4,11 +4,13 @@ import loggingMiddleware from 'redux-logger'
 import campusReducer from "./components/campus";
 import studentReducer from "./components/student";
 
+const rootReducer = combineReducers({
+    students:studentReducer,
+    campuses:campusReducer
+})
 
-const store = configureStore({reducer:{
-    student: studentReducer,
-    campus: campusReducer
-}}, applyMiddleware(thunk, loggingMiddleware)
+const store = createStore(rootReducer, 
+    applyMiddleware(thunk, loggingMiddleware)
 )
 
-export default configureStore;
+export default store;

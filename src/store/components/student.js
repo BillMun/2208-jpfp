@@ -9,7 +9,7 @@ function getAllStudents (students) {
 }
 
 //action reducer
-const initialState = {}
+const initialState = []
 
 const studentReducer = (state=initialState, action)=>{
     switch(action.type){
@@ -24,7 +24,7 @@ const studentReducer = (state=initialState, action)=>{
 export function fetchAllStudents (){
     return async function getAllStudentsThunk (dispatch){
         try{
-            const {data} = await axios.get('/api/campuses')
+            const {data} = await axios.get('/api/students')
             return dispatch(getAllStudents(data))
         }catch(err){
             console.log(err)

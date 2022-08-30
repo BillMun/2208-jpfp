@@ -10,7 +10,7 @@ function getAllCampuses (campuses) {
 }
 
 //reducers
-const initialState = {}
+const initialState = []
 
 const campusReducer = (state=initialState, action)=>{
     switch (action.type){
