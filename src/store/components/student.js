@@ -2,19 +2,32 @@ import axios from "axios";
 
 //action types
 const GET_ALL_STUDENTS = 'GET_ALL_STUDENTS'
+const GET_STUDENT ='GET_STUDENT'
 
 //action creators
 function getAllStudents (students) {
     return {type: GET_ALL_STUDENTS, students}
 }
+function getStudent (student){
+    return {type: GET_STUDENT, student}
+}
 
-//action reducer
+//action reducers
 const initialState = []
 
-const studentReducer = (state=initialState, action)=>{
+export const studentsReducer = (state=initialState, action)=>{
     switch(action.type){
         case GET_ALL_STUDENTS:
             return action.students
+        default:
+            return state
+    }
+}
+
+export const studentReducer = (state={}, action)=>{
+    switch(action.type){
+        case GET_STUDENT:
+            return action.student
         default:
             return state
     }
@@ -31,4 +44,14 @@ export function fetchAllStudents (){
         }
     }
 }
-export default studentReducer
+
+export function fetchStudent (id) {
+    return async function getStudentThunk (dispatch){
+        try{
+            const {data} = await axios.get(`/api/students/${id}`)
+            return dispatch(getStudent(data))
+        }catch(err){
+            console.log(err)
+        }
+    }
+}

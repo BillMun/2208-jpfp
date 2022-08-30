@@ -1,12 +1,14 @@
 import {createStore, applyMiddleware, combineReducers} from "redux";
 import thunk from "redux-thunk";
 import loggingMiddleware from 'redux-logger'
-import campusReducer from "./components/campus";
-import studentReducer from "./components/student";
+import {campusesReducer, campusReducer} from "./components/campus";
+import {studentsReducer, studentReducer} from "./components/student";
 
 const rootReducer = combineReducers({
-    students:studentReducer,
-    campuses:campusReducer
+    students:studentsReducer,
+    campuses:campusesReducer,
+    campus:campusReducer,
+    student:studentReducer,
 })
 
 const store = createStore(rootReducer, 

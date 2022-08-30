@@ -15,5 +15,18 @@ router.get('/', async (req,res,next)=>{
         next(err)
     }
 })
+//single student /api/students/:id
+router.get('/:id', async (req,res,next)=>{
+    try{
+        const student = await Student.findByPk((req.params.id),{
+            include:{
+                model: Campus
+            }
+        })
+        res.send(student)
+    }catch(err){
+        next(err)
+    }
+})
 
 module.exports = router

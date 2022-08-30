@@ -1,21 +1,20 @@
 import React from "react";
 import {useDispatch} from 'react-redux'
-import AllStudents from "./components/AllStudents";
 import {useEffect} from 'react'
 import { fetchAllStudents } from "./store/components/student";
 import {Routes, Route, Link} from 'react-router-dom'
-import SplashPage from "./components/SplashPage";
-import NavBar from "./components/NavBar";
-import AllCampuses from "./components/AllCampuses";
+import { AllCampuses, AllStudents, NavBar, SingleCampus, SplashPage, SingleStudent } from "./components";
 import { fetchAllCampuses } from "./store/components/campus";
+
+
+
 function App(){
     const dispatch = useDispatch()
     
     useEffect(()=>{
-        console.log('hello?')
         dispatch(fetchAllStudents())
         dispatch(fetchAllCampuses())
-    },[])
+    },[dispatch])
 
     return(
         <div id='main'>
@@ -24,6 +23,8 @@ function App(){
                 <Route index element={<SplashPage/>}/>
                 <Route path ={'/students'} element ={<AllStudents/>}/>
                 <Route path = {'/campuses'} element ={<AllCampuses/>}/>
+                <Route path = {'/campuses/:id'} element={<SingleCampus/>}/>
+                <Route path = {'/students/:id'} element= {<SingleStudent/>}/>
             </Routes>
         </div>
     )

@@ -21,11 +21,17 @@ const syncAndSeed = async () => {
 
     })
 
+    const art = await Campus.create({
+      name: 'Art Academy',
+      address: '200 Art Lane, Spring Field VA, 21030',
+      description: 'New art academy desperately trying to get students'
+    })
+
     const bill = await Student.create({
       firstName: 'Bill',
       lastName: 'Munkacsy',
       email: 'example@gmail.com',
-      gpa: '4.0',
+      gpa: 4.0,
       campusId: fullStack.id,
 
     })
@@ -46,6 +52,13 @@ const syncAndSeed = async () => {
       gpa: 3.8,
       campusId: fullStack.id,
 
+    })
+
+    const kim = await Student.create({
+      firstName: 'Kim',
+      lastName: 'Chabot',
+      email: '1337fun@gmail.com',
+      gpa: 3.9
     })
 
     //use this area to sync your database

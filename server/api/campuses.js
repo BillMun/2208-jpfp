@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const {Campus, Student} = require('../db')
 
-//get /api/campuses
+//get /api/campuses all campuses
 router.get('/', async (req,res,next)=>{
     try{
         const campuses = await Campus.findAll({
@@ -12,6 +12,21 @@ router.get('/', async (req,res,next)=>{
         res.send(campuses)
     }
     catch(err){
+        next(err)
+    }
+})
+
+//get /api/campuses/:id single campus
+
+router.get('/:id', async (req,res,next)=>{
+    try{
+        const campus = await Campus.findByPk((req.params.id),{
+            include:{
+                model: Student
+            }
+        })
+        res.send(campus)
+    }catch(err){
         next(err)
     }
 })

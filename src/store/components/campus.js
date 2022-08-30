@@ -2,17 +2,21 @@ import axios from 'axios'
 
 //action types
 const GET_ALL_CAMPUSES = 'GET_ALL_CAMPUSES'
+const GET_CAMPUS = 'GET_CAMPUS'
 
 
 //action creators
 function getAllCampuses (campuses) {
     return {type: GET_ALL_CAMPUSES, campuses }
 }
+function getCampus(campus){
+    return {type: GET_CAMPUS, campus}
+}
 
 //reducers
 const initialState = []
 
-const campusReducer = (state=initialState, action)=>{
+export const campusesReducer = (state=initialState, action)=>{
     switch (action.type){
         case GET_ALL_CAMPUSES:
             return action.campuses
@@ -20,6 +24,15 @@ const campusReducer = (state=initialState, action)=>{
             return state
     }
 }
+export const campusReducer = (state={}, action)=>{
+    switch (action.type){
+        case GET_CAMPUS:
+            return action.campus
+        default:
+            return state
+    }
+}
+
 
 //axios thunks
 export function fetchAllCampuses (){
@@ -33,4 +46,13 @@ export function fetchAllCampuses (){
     }
 }
 
-export default campusReducer
+export function fetchCampus(id){
+    return async function getCampusThunk (dispatch){
+        try{
+            const {data} = await axios.get(`/api/campuses/${id}`)
+            return dispatch(getCampus(data))
+        }catch(err){
+            console.log(err)
+        }
+    }
+}
