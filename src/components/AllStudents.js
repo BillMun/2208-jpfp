@@ -1,7 +1,7 @@
 import React from "react";
 import {useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
-
+import CreateStudent from "./CreateStudent";
 function AllStudents (){
     const students = useSelector(state=>state.students)
     return(
@@ -15,6 +15,9 @@ function AllStudents (){
                 <img className='img' src= {student.imageUrl}/>
                 </div>
             ):null }
+            <div className="createContainer">
+                <CreateStudent/>
+            </div>
         </div>)
 }
 export default AllStudents

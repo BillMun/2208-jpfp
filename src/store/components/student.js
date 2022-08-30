@@ -3,6 +3,7 @@ import axios from "axios";
 //action types
 const GET_ALL_STUDENTS = 'GET_ALL_STUDENTS'
 const GET_STUDENT ='GET_STUDENT'
+const CREATE_STUDENT='CREATE_STUDENT'
 
 //action creators
 function getAllStudents (students) {
@@ -10,6 +11,9 @@ function getAllStudents (students) {
 }
 function getStudent (student){
     return {type: GET_STUDENT, student}
+}
+function createStudentAction(student){
+    return {type: CREATE_STUDENT, student}
 }
 
 //action reducers
@@ -19,6 +23,8 @@ export const studentsReducer = (state=initialState, action)=>{
     switch(action.type){
         case GET_ALL_STUDENTS:
             return action.students
+        case CREATE_STUDENT:
+            return [...state, action.student]
         default:
             return state
     }
@@ -53,5 +59,15 @@ export function fetchStudent (id) {
         }catch(err){
             console.log(err)
         }
+    }
+}
+
+export function createStudent(student){
+    return async function createStudentThunk(dispatch){
+        try{
+            const {data:created} = await axios.post(`/api/students/`, student)
+            dispatch(createStudentAction(created))
+            location.href = '/students'
+        }catch(error){console.log(error)}
     }
 }

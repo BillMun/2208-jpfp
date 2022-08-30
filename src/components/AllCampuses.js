@@ -1,6 +1,7 @@
 import React from "react";
 import {useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
+import CreateCampus from "./CreateCampus";
 
 function AllCampuses (){
     const campuses = useSelector(state=>state.campuses)
@@ -15,6 +16,10 @@ function AllCampuses (){
                 <img className='img' src= {campus.imageUrl}/>
                 </div>
             ):null }
+            <div className='createContainer'>
+            <CreateCampus/>
+            </div>
         </div>)
+        
 }
 export default AllCampuses
