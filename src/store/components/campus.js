@@ -67,9 +67,9 @@ export function fetchCampus(id){
 export function createCampus(campus){
     return async function createCampusThunk(dispatch){
         try{
-            const {data:created} = await axios.post(`/api/campuses/`, campus)
+            const {data:created} = await axios.post('/api/campuses/', campus)
+
             dispatch(createCampusAction(created))
-            location.href='/campuses'
         }catch(error){console.log(error)}
     }
 }

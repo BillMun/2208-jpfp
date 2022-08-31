@@ -2557,7 +2557,7 @@ function AllCampuses() {
       key: campus.id
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
       to: "/campuses/".concat(campus.id)
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h4", null, "Campus Name: ", campus.name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h4", null, "Total Students: ", campus.students.length), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h4", null, "Campus Name: ", campus.name)), campus.students ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h4", null, "Total Students: ", campus.students.length) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h4", null, "Total Students: 0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
       className: "img",
       src: campus.imageUrl
     }));
@@ -2603,7 +2603,7 @@ function AllStudents() {
       key: student.id
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
       to: "/students/".concat(student.id)
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h4", null, "Full Name: ", student.firstName, " ", student.lastName)), student.campus ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h4", null, "Attends: ", student.campus.name) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h4", null, "Has not picked a campus!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h4", null, "Full Name: ", student.firstName, " ", student.lastName)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
       className: "img",
       src: student.imageUrl
     }));
@@ -2671,6 +2671,9 @@ function CreateCampus(_ref) {
 
   var handleSubmit = function handleSubmit(event) {
     event.preventDefault();
+    setNewCampus(_objectSpread(_objectSpread({}, newCampus), {}, {
+      students: []
+    }));
     dispatch((0,_store_components_campus__WEBPACK_IMPORTED_MODULE_1__.createCampus)(newCampus, history));
   };
 
@@ -2690,7 +2693,7 @@ function CreateCampus(_ref) {
     name: "description"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     type: "submit"
-  }, "Submit"));
+  }, "Create"));
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateCampus);
@@ -2740,6 +2743,9 @@ function CreateStudent() {
       newStudent = _useState2[0],
       setNewStudent = _useState2[1];
 
+  var campuses = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
+    return state.campuses;
+  });
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
 
   var handleChange = function handleChange(props) {
@@ -2754,6 +2760,10 @@ function CreateStudent() {
 
   var handleSubmit = function handleSubmit(event) {
     event.preventDefault();
+    setNewStudent(_objectSpread(_objectSpread({}, newStudent), {}, {
+      campusId: event.target.select
+    }));
+    console.log(newStudent);
     dispatch((0,_store_components_student__WEBPACK_IMPORTED_MODULE_1__.createStudent)(newStudent));
   };
 
@@ -2775,9 +2785,21 @@ function CreateStudent() {
     type: "text",
     onChange: handleChange('gpa'),
     name: "gpa"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Campus"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
+    onClick: function onClick(event) {
+      var valuesArr = event.target.value.split(',');
+      setNewStudent(_objectSpread(_objectSpread({}, newStudent), {}, {
+        campusId: Number(valuesArr[0])
+      }));
+    }
+  }, campuses.map(function (campus) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+      key: campus.id,
+      value: campus.id
+    }, campus.name);
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", null, "None")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     type: "submit"
-  }, "Submit"));
+  }, "Create"));
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateStudent);
@@ -3158,27 +3180,26 @@ function createCampus(campus) {
             case 0:
               _context3.prev = 0;
               _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/campuses/", campus);
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/campuses/', campus);
 
             case 3:
               _yield$axios$post = _context3.sent;
               created = _yield$axios$post.data;
               dispatch(createCampusAction(created));
-              location.href = '/campuses';
-              _context3.next = 12;
+              _context3.next = 11;
               break;
 
-            case 9:
-              _context3.prev = 9;
+            case 8:
+              _context3.prev = 8;
               _context3.t0 = _context3["catch"](0);
               console.log(_context3.t0);
 
-            case 12:
+            case 11:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[0, 9]]);
+      }, _callee3, null, [[0, 8]]);
     }));
 
     function createCampusThunk(_x3) {
@@ -3378,21 +3399,20 @@ function createStudent(student) {
               _yield$axios$post = _context3.sent;
               created = _yield$axios$post.data;
               dispatch(createStudentAction(created));
-              location.href = '/students';
-              _context3.next = 12;
+              _context3.next = 11;
               break;
 
-            case 9:
-              _context3.prev = 9;
+            case 8:
+              _context3.prev = 8;
               _context3.t0 = _context3["catch"](0);
               console.log(_context3.t0);
 
-            case 12:
+            case 11:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[0, 9]]);
+      }, _callee3, null, [[0, 8]]);
     }));
 
     function createStudentThunk(_x3) {

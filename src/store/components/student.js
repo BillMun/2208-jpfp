@@ -67,7 +67,7 @@ export function createStudent(student){
         try{
             const {data:created} = await axios.post(`/api/students/`, student)
             dispatch(createStudentAction(created))
-            location.href = '/students'
+           
         }catch(error){console.log(error)}
     }
 }

@@ -17,6 +17,10 @@ function CreateCampus ({history}) {
 
     const handleSubmit = (event) =>{
         event.preventDefault()
+        setNewCampus({
+            ...newCampus,
+            students:[]
+        })
         dispatch(createCampus(newCampus, history))
     }
 
@@ -28,7 +32,7 @@ function CreateCampus ({history}) {
                 <input type='text' onChange={handleChange('address')} name='address'/>
             <label>Description</label>
                 <input type='text' onChange={handleChange('description')} name='description'/>
-            <button type='submit'>Submit</button>
+            <button type='submit'>Create</button>
         </form>
     )
 }
