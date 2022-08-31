@@ -25,9 +25,8 @@ function CreateStudent () {
         event.preventDefault()
         setNewStudent({
             ...newStudent,
-            campusId: event.target.select
+            campusId: Number(event.target.select)
         })
-        console.log(newStudent)
         dispatch(createStudent(newStudent))
     }
 
@@ -43,15 +42,13 @@ function CreateStudent () {
                 <input type='text' onChange={handleChange('gpa')} name='gpa'/>
             <label>Campus</label>
                 <select onClick={(event)=>{
-                    let valuesArr = event.target.value.split(',')
                     setNewStudent({
                     ...newStudent,
-                    campusId:Number(valuesArr[0]),
-              
+                    campusId:Number(event.target.value),
                 })}}>
+                    <option>None</option>
                     {campuses.map(campus=>
                         <option key={campus.id} value={campus.id}>{campus.name}</option>)}
-                    <option>None</option>
                 </select>
             <button type='submit'>Create</button>
         </form>

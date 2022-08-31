@@ -1,10 +1,12 @@
 import axios from "axios";
-
+import { getCampus } from "./campus";
 //action types
 const GET_ALL_STUDENTS = 'GET_ALL_STUDENTS'
 const GET_STUDENT ='GET_STUDENT'
 const CREATE_STUDENT='CREATE_STUDENT'
 const DELETE_STUDENT='DELETE_STUDENT'
+const UPDATE_STUDENT = 'UPDATE_STUDENT'
+const UPDATE_STUDENT2 = 'UPDATE_STUDENT2'
 
 //action creators
 function getAllStudents (students) {
@@ -19,6 +21,12 @@ function createStudentAction(student){
 function deleteStudentAction(student){
     return {type: DELETE_STUDENT, student}
 }
+function updateStudentAction(student){
+    return {type:UPDATE_STUDENT, student}
+}
+function updateStudentAction2(student){
+    return {type:UPDATE_STUDENT2, student}
+}
 
 //action reducers
 const initialState = []
@@ -31,6 +39,9 @@ export const studentsReducer = (state=initialState, action)=>{
             return [...state, action.student]
         case DELETE_STUDENT:
             return state.filter((student)=>student.id !==action.student.id)
+        case UPDATE_STUDENT2:
+            return state.map((student)=>
+            student.id===action.student.id ? action.student:student)
         default:
             return state
     }
@@ -39,7 +50,9 @@ export const studentsReducer = (state=initialState, action)=>{
 export const studentReducer = (state={}, action)=>{
     switch(action.type){
         case GET_STUDENT:
-            return action.student
+            return {...state, state:action.student}
+        case UPDATE_STUDENT:
+            return {...state, state:action.student}
         default:
             return state
     }
@@ -82,6 +95,17 @@ export function deleteStudent(id){
         try{
             const {data}= await axios.delete(`/api/students/${id}`)
             dispatch(deleteStudentAction(data))
+        }catch(error){console.log(error)}
+    }
+}
+
+export function updateStudent(student){
+    return async function updateStudentThunk(dispatch){
+        try{
+            const {data} = await axios.put(`/api/students/${student.id}`,student)
+            dispatch(updateStudentAction(data))
+            dispatch(getStudent(data))
+            dispatch(updateStudentAction2(data))
         }catch(error){console.log(error)}
     }
 }

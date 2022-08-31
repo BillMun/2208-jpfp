@@ -41,12 +41,28 @@ router.post('/', async (req,res,next)=>{
 //delete /api/campuses/:id
 router.delete('/:id', async (req,res,next)=>{
     try{
-        const campus = await Campus.findByPk(req.params.id)
-        await campus.destory
+        const campus = await Campus.findByPk((req.params.id),{
+            include:{
+                model: Student
+            }
+        })
+        await campus.destroy()
         res.send(campus)
     }catch(error){
         next(error)
     }
+})
+
+//update/put /api/campuses/:id
+router.put('/:id', async (req,res,next)=>{
+    try{
+        const campus = await Campus.findByPk((req.params.id),{
+            include:{
+                model: Student
+            }
+        })
+        res.send(await campus.update(req.body))
+    }catch(error){next(error)}
 })
 
 module.exports = router

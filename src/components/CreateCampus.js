@@ -3,7 +3,7 @@ import { createCampus } from '../store/components/campus'
 import {useDispatch} from 'react-redux'
 
 
-function CreateCampus ({history}) {
+function CreateCampus () {
     const [newCampus, setNewCampus]=useState({})
     const dispatch = useDispatch()
     const handleChange = props => event => {
@@ -18,7 +18,7 @@ function CreateCampus ({history}) {
             ...newCampus,
             students:[]
         })
-        dispatch(createCampus(newCampus, history))
+        dispatch(createCampus(newCampus))
     }
 
     return (

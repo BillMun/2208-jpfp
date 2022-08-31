@@ -5,6 +5,7 @@ import {useSelector} from 'react-redux'
 function NavBar () {
     const students = useSelector(state=>state.students)
     const campuses = useSelector(state=>state.campuses)
+
     
     return(
         <div className='navbar'>

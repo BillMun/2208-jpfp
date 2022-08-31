@@ -13,6 +13,8 @@ function AllStudents (){
                 <Link to = {`/students/${student.id}`}>
                     <h4>Full Name: {student.firstName} {student.lastName}</h4>
                 </Link>
+                {/* {student.campus ? <h4>Attends: {student.campus.name}</h4>
+                :<h4>Has not picked a campus!</h4>} */}
                 <img className='img' src= {student.imageUrl}/>
                 <DeleteStudent student={student}/>
                 </div>

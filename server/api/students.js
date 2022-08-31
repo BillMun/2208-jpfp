@@ -31,17 +31,49 @@ router.get('/:id', async (req,res,next)=>{
 //create student /api/students
 router.post('/', async (req,res,next)=>{
     try{
-        res.status(201).send(await Student.create(req.body))
+        let newStudent = await Student.create(req.body)
+        let newStuduentId = newStudent.dataValues.id
+        let student = await Student.findByPk(newStuduentId,{
+            include:{
+                model:Campus
+            }
+        })
+        console.log(student)
+        res.status(201).send(student)
     }catch(error){next(error)}
 })
 
 //delete student /api/students/:id
 router.delete('/:id', async (req,res,next)=>{
     try{
-    const student = await Student.findByPk(req.params.id)
+    const student = await Student.findByPk((req.params.id),{
+        include:{
+            model: Campus
+        }
+    })
     await student.destroy()
     res.send(student)
     }catch(error){next(error)}
+})
+
+//update or put /api/students/:id
+router.put('/:id', async (req,res,next)=>{
+    try{
+        const student = await Student.findByPk((req.params.id),{
+            include:{
+                model: Campus
+            }
+        })
+        await student.update(req.body)
+        const updatedStudent = await Student.findByPk((req.params.id),{
+            include:{
+                model: Campus
+            }
+        })
+        res.send(updatedStudent)
+    }catch(error){
+        next(error)
+    }
 })
 
 module.exports = router
