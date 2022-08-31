@@ -4,6 +4,7 @@ import axios from 'axios'
 const GET_ALL_CAMPUSES = 'GET_ALL_CAMPUSES'
 const GET_CAMPUS = 'GET_CAMPUS'
 const CREATE_CAMPUS = 'CREATE_CAMPUS'
+const DELETE_CAMPUS = 'DELETE_CAMPUS'
 
 
 //action creators
@@ -16,6 +17,9 @@ function getCampus(campus){
 function createCampusAction(campus){
     return {type: CREATE_CAMPUS, campus}
 }
+function deleteCampusAction(campus){
+    return {type: DELETE_CAMPUS, campus}
+}
 
 //reducers i had to split the reducers in two
 //one for single one for all due to not wanting to deal with different initial states
@@ -27,6 +31,8 @@ export const campusesReducer = (state=initialState, action)=>{
             return action.campuses
         case CREATE_CAMPUS:
             return [...state, action.campus]
+        case DELETE_CAMPUS:
+            return state.filter((campus)=> campus.id !== action.campus.id)
         default:
             return state
     }
@@ -70,6 +76,15 @@ export function createCampus(campus){
             const {data:created} = await axios.post('/api/campuses/', campus)
 
             dispatch(createCampusAction(created))
+        }catch(error){console.log(error)}
+    }
+}
+
+export function deleteCampus (id){
+    return async function deleteCampusThunk(dispatch){
+        try{
+            const {data} = await axios.delete(`/api/campuses/${id}`)
+            dispatch(deleteCampusAction(data))
         }catch(error){console.log(error)}
     }
 }

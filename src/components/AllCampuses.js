@@ -2,6 +2,7 @@ import React from "react";
 import {useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
 import CreateCampus from "./CreateCampus";
+import DeleteCampus from "./DeleteCampus";
 
 function AllCampuses (){
     const campuses = useSelector(state=>state.campuses)
@@ -17,6 +18,7 @@ function AllCampuses (){
                 :<h4>Total Students: 0</h4>
                 }
                 <img className='img' src= {campus.imageUrl}/>
+                <DeleteCampus campus={campus}/>
                 </div>
             ):null }
             <div className='createContainer'>

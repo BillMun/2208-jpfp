@@ -9,7 +9,6 @@ function CreateStudent () {
     const dispatch = useDispatch()
 
     const handleChange = props => event => {
-
         setNewStudent({
             ...newStudent,
             [props]:event.target.value

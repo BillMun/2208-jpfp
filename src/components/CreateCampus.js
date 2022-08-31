@@ -5,16 +5,13 @@ import {useDispatch} from 'react-redux'
 
 function CreateCampus ({history}) {
     const [newCampus, setNewCampus]=useState({})
-
     const dispatch = useDispatch()
-
     const handleChange = props => event => {
         setNewCampus({
             ...newCampus,
             [props]:event.target.value
         })
     }
-
     const handleSubmit = (event) =>{
         event.preventDefault()
         setNewCampus({

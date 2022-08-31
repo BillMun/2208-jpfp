@@ -2538,8 +2538,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
 /* harmony import */ var _CreateCampus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CreateCampus */ "./src/components/CreateCampus.js");
+/* harmony import */ var _DeleteCampus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DeleteCampus */ "./src/components/DeleteCampus.js");
+
 
 
 
@@ -2555,11 +2557,13 @@ function AllCampuses() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "innerContainer",
       key: campus.id
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
       to: "/campuses/".concat(campus.id)
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h4", null, "Campus Name: ", campus.name)), campus.students ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h4", null, "Total Students: ", campus.students.length) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h4", null, "Total Students: 0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
       className: "img",
       src: campus.imageUrl
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_DeleteCampus__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      campus: campus
     }));
   }) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "createContainer"
@@ -2584,8 +2588,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
 /* harmony import */ var _CreateStudent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CreateStudent */ "./src/components/CreateStudent.js");
+/* harmony import */ var _DeleteStudent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DeleteStudent */ "./src/components/DeleteStudent.js");
+
 
 
 
@@ -2601,11 +2607,13 @@ function AllStudents() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "innerContainer",
       key: student.id
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
       to: "/students/".concat(student.id)
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h4", null, "Full Name: ", student.firstName, " ", student.lastName)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
       className: "img",
       src: student.imageUrl
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_DeleteStudent__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      student: student
     }));
   }) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "createContainer"
@@ -2803,6 +2811,72 @@ function CreateStudent() {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateStudent);
+
+/***/ }),
+
+/***/ "./src/components/DeleteCampus.js":
+/*!****************************************!*\
+  !*** ./src/components/DeleteCampus.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _store_components_campus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store/components/campus */ "./src/store/components/campus.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+
+
+
+function DeleteCampus(props) {
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
+    className: "delete",
+    onClick: function onClick() {
+      return dispatch((0,_store_components_campus__WEBPACK_IMPORTED_MODULE_1__.deleteCampus)(props.campus.id));
+    }
+  }, "X");
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DeleteCampus);
+
+/***/ }),
+
+/***/ "./src/components/DeleteStudent.js":
+/*!*****************************************!*\
+  !*** ./src/components/DeleteStudent.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _store_components_student__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store/components/student */ "./src/store/components/student.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+
+
+
+function DeleteStudent(props) {
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
+    className: "delete",
+    onClick: function onClick() {
+      return dispatch((0,_store_components_student__WEBPACK_IMPORTED_MODULE_1__.deleteStudent)(props.student.id));
+    }
+  }, "X");
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DeleteStudent);
 
 /***/ }),
 
@@ -3010,6 +3084,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "campusReducer": () => (/* binding */ campusReducer),
 /* harmony export */   "campusesReducer": () => (/* binding */ campusesReducer),
 /* harmony export */   "createCampus": () => (/* binding */ createCampus),
+/* harmony export */   "deleteCampus": () => (/* binding */ deleteCampus),
 /* harmony export */   "fetchAllCampuses": () => (/* binding */ fetchAllCampuses),
 /* harmony export */   "fetchCampus": () => (/* binding */ fetchCampus)
 /* harmony export */ });
@@ -3039,7 +3114,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 var GET_ALL_CAMPUSES = 'GET_ALL_CAMPUSES';
 var GET_CAMPUS = 'GET_CAMPUS';
-var CREATE_CAMPUS = 'CREATE_CAMPUS'; //action creators
+var CREATE_CAMPUS = 'CREATE_CAMPUS';
+var DELETE_CAMPUS = 'DELETE_CAMPUS'; //action creators
 
 function getAllCampuses(campuses) {
   return {
@@ -3060,6 +3136,13 @@ function createCampusAction(campus) {
     type: CREATE_CAMPUS,
     campus: campus
   };
+}
+
+function deleteCampusAction(campus) {
+  return {
+    type: DELETE_CAMPUS,
+    campus: campus
+  };
 } //reducers i had to split the reducers in two
 //one for single one for all due to not wanting to deal with different initial states
 
@@ -3075,6 +3158,11 @@ var campusesReducer = function campusesReducer() {
 
     case CREATE_CAMPUS:
       return [].concat(_toConsumableArray(state), [action.campus]);
+
+    case DELETE_CAMPUS:
+      return state.filter(function (campus) {
+        return campus.id !== action.campus.id;
+      });
 
     default:
       return state;
@@ -3209,6 +3297,46 @@ function createCampus(campus) {
     return createCampusThunk;
   }();
 }
+function deleteCampus(id) {
+  return /*#__PURE__*/function () {
+    var _deleteCampusThunk = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(dispatch) {
+      var _yield$axios$delete, data;
+
+      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.prev = 0;
+              _context4.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/campuses/".concat(id));
+
+            case 3:
+              _yield$axios$delete = _context4.sent;
+              data = _yield$axios$delete.data;
+              dispatch(deleteCampusAction(data));
+              _context4.next = 11;
+              break;
+
+            case 8:
+              _context4.prev = 8;
+              _context4.t0 = _context4["catch"](0);
+              console.log(_context4.t0);
+
+            case 11:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[0, 8]]);
+    }));
+
+    function deleteCampusThunk(_x4) {
+      return _deleteCampusThunk.apply(this, arguments);
+    }
+
+    return deleteCampusThunk;
+  }();
+}
 
 /***/ }),
 
@@ -3222,6 +3350,7 @@ function createCampus(campus) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "createStudent": () => (/* binding */ createStudent),
+/* harmony export */   "deleteStudent": () => (/* binding */ deleteStudent),
 /* harmony export */   "fetchAllStudents": () => (/* binding */ fetchAllStudents),
 /* harmony export */   "fetchStudent": () => (/* binding */ fetchStudent),
 /* harmony export */   "studentReducer": () => (/* binding */ studentReducer),
@@ -3253,7 +3382,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 var GET_ALL_STUDENTS = 'GET_ALL_STUDENTS';
 var GET_STUDENT = 'GET_STUDENT';
-var CREATE_STUDENT = 'CREATE_STUDENT'; //action creators
+var CREATE_STUDENT = 'CREATE_STUDENT';
+var DELETE_STUDENT = 'DELETE_STUDENT'; //action creators
 
 function getAllStudents(students) {
   return {
@@ -3274,6 +3404,13 @@ function createStudentAction(student) {
     type: CREATE_STUDENT,
     student: student
   };
+}
+
+function deleteStudentAction(student) {
+  return {
+    type: DELETE_STUDENT,
+    student: student
+  };
 } //action reducers
 
 
@@ -3288,6 +3425,11 @@ var studentsReducer = function studentsReducer() {
 
     case CREATE_STUDENT:
       return [].concat(_toConsumableArray(state), [action.student]);
+
+    case DELETE_STUDENT:
+      return state.filter(function (student) {
+        return student.id !== action.student.id;
+      });
 
     default:
       return state;
@@ -3420,6 +3562,46 @@ function createStudent(student) {
     }
 
     return createStudentThunk;
+  }();
+}
+function deleteStudent(id) {
+  return /*#__PURE__*/function () {
+    var _deleteStudentThunk = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(dispatch) {
+      var _yield$axios$delete, data;
+
+      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.prev = 0;
+              _context4.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/students/".concat(id));
+
+            case 3:
+              _yield$axios$delete = _context4.sent;
+              data = _yield$axios$delete.data;
+              dispatch(deleteStudentAction(data));
+              _context4.next = 11;
+              break;
+
+            case 8:
+              _context4.prev = 8;
+              _context4.t0 = _context4["catch"](0);
+              console.log(_context4.t0);
+
+            case 11:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[0, 8]]);
+    }));
+
+    function deleteStudentThunk(_x4) {
+      return _deleteStudentThunk.apply(this, arguments);
+    }
+
+    return deleteStudentThunk;
   }();
 }
 

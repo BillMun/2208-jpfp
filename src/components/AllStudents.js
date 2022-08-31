@@ -2,6 +2,7 @@ import React from "react";
 import {useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
 import CreateStudent from "./CreateStudent";
+import DeleteStudent from "./DeleteStudent";
 
 function AllStudents (){
     const students = useSelector(state=>state.students)
@@ -13,6 +14,7 @@ function AllStudents (){
                     <h4>Full Name: {student.firstName} {student.lastName}</h4>
                 </Link>
                 <img className='img' src= {student.imageUrl}/>
+                <DeleteStudent student={student}/>
                 </div>
             ):null }
             <div className="createContainer">
