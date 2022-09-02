@@ -1,4 +1,5 @@
 import axios from 'axios'
+import React from 'react'
 
 //action types
 const GET_ALL_CAMPUSES = 'GET_ALL_CAMPUSES'
@@ -7,6 +8,7 @@ const CREATE_CAMPUS = 'CREATE_CAMPUS'
 const DELETE_CAMPUS = 'DELETE_CAMPUS'
 const UPDATE_CAMPUS = 'UPDATE_CAMPUS'
 const UPDATE_CAMPUS2 ='UPDATE_CAMPUS2'
+const ERROR_HANDLE = 'ERROR_HANDLE'
 
 
 //action creators
@@ -27,6 +29,9 @@ function updateCampusAction(campus){
 }
 function updateCampusAction2(campus){
     return {type:UPDATE_CAMPUS2, campus}
+}
+export function errorHandle(error){
+    return {type: ERROR_HANDLE, error}
 }
 
 //reducers i had to split the reducers in two
@@ -61,6 +66,14 @@ export const campusReducer = (state={}, action)=>{
     }
 }
 
+export const campusErrorReducer = (state={}, action)=>{
+    switch (action.type){
+        case ERROR_HANDLE:
+            return action.error
+        default: return state
+    }
+}
+
 
 //axios thunks
 export function fetchAllCampuses (){
@@ -91,7 +104,8 @@ export function createCampus(campus){
             const {data:created} = await axios.post('/api/campuses/', campus)
 
             dispatch(createCampusAction(created))
-        }catch(error){console.log(error)}
+        }catch(error){await error
+            dispatch(errorHandle(error))}
     }
 }
 

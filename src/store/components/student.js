@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCampus } from "./campus";
+import { errorHandle } from "./campus";
 //action types
 const GET_ALL_STUDENTS = 'GET_ALL_STUDENTS'
 const GET_STUDENT ='GET_STUDENT'
@@ -86,7 +86,7 @@ export function createStudent(student){
         try{
             const {data:created} = await axios.post(`/api/students/`, student)
             dispatch(createStudentAction(created))          
-        }catch(error){console.log(error)}
+        }catch(error){dispatch(errorHandle(error))}
     }
 }
 
