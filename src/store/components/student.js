@@ -28,6 +28,7 @@ function updateStudentAction2(student){
     return {type:UPDATE_STUDENT2, student}
 }
 
+
 //action reducers
 const initialState = []
 
@@ -57,7 +58,6 @@ export const studentReducer = (state={}, action)=>{
             return state
     }
 }
-
 //axios thunks
 export function fetchAllStudents (){
     return async function getAllStudentsThunk (dispatch){
@@ -86,7 +86,7 @@ export function createStudent(student){
         try{
             const {data:created} = await axios.post(`/api/students/`, student)
             dispatch(createStudentAction(created))          
-        }catch(error){dispatch(errorHandle(error))}
+        }catch(error){console.log(error)}
     }
 }
 

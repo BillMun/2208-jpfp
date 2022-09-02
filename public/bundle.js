@@ -2511,12 +2511,6 @@ function App() {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
     path: '/students/:id',
     element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components__WEBPACK_IMPORTED_MODULE_3__.SingleStudent, null)
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
-    path: '/campuses/create',
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components__WEBPACK_IMPORTED_MODULE_3__.CreateCampus, null)
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
-    path: '/students/create',
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components__WEBPACK_IMPORTED_MODULE_3__.CreateStudent, null)
   })));
 }
 
@@ -2722,9 +2716,6 @@ function CreateCampus() {
       setNewCampus = _useState2[1];
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
-  var error = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
-    return state.error;
-  });
 
   var handleChange = function handleChange(props) {
     return function (event) {
@@ -2745,10 +2736,9 @@ function CreateCampus() {
     dispatch((0,_store_components_campus__WEBPACK_IMPORTED_MODULE_1__.createCampus)(newCampus));
   };
 
-  console.log(error);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
     onSubmit: handleSubmit
-  }, error.message ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "ERROR! Campus Name and Address are required") : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Campus Name:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Campus Name:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "text",
     onChange: handleChange('name'),
     name: "name"
@@ -2815,9 +2805,6 @@ function CreateStudent() {
   var campuses = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
     return state.campuses;
   });
-  var error = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
-    return state.error;
-  });
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
 
   var handleChange = function handleChange(props) {
@@ -2840,7 +2827,7 @@ function CreateStudent() {
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
     onSubmit: handleSubmit
-  }, error.message ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "ERROR!! First and Last name required, must be a valid email, GPA a number") : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "First Name:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "First Name:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "text",
     onChange: handleChange('firstName'),
     name: "firstName"
@@ -3065,9 +3052,7 @@ function SingleCampus() {
   })))) : null);
 }
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SingleCampus); // {/* <div className='createContainer'>
-//     <UpdateCampus campus={campus}/>
-// </div> */}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SingleCampus);
 
 /***/ }),
 
@@ -3368,12 +3353,10 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "campusErrorReducer": () => (/* binding */ campusErrorReducer),
 /* harmony export */   "campusReducer": () => (/* binding */ campusReducer),
 /* harmony export */   "campusesReducer": () => (/* binding */ campusesReducer),
 /* harmony export */   "createCampus": () => (/* binding */ createCampus),
 /* harmony export */   "deleteCampus": () => (/* binding */ deleteCampus),
-/* harmony export */   "errorHandle": () => (/* binding */ errorHandle),
 /* harmony export */   "fetchAllCampuses": () => (/* binding */ fetchAllCampuses),
 /* harmony export */   "fetchCampus": () => (/* binding */ fetchCampus),
 /* harmony export */   "getCampus": () => (/* binding */ getCampus),
@@ -3417,8 +3400,7 @@ var GET_CAMPUS = 'GET_CAMPUS';
 var CREATE_CAMPUS = 'CREATE_CAMPUS';
 var DELETE_CAMPUS = 'DELETE_CAMPUS';
 var UPDATE_CAMPUS = 'UPDATE_CAMPUS';
-var UPDATE_CAMPUS2 = 'UPDATE_CAMPUS2';
-var ERROR_HANDLE = 'ERROR_HANDLE'; //action creators
+var UPDATE_CAMPUS2 = 'UPDATE_CAMPUS2'; //action creators
 
 function getAllCampuses(campuses) {
   return {
@@ -3460,17 +3442,11 @@ function updateCampusAction2(campus) {
     type: UPDATE_CAMPUS2,
     campus: campus
   };
-}
-
-function errorHandle(error) {
-  return {
-    type: ERROR_HANDLE,
-    error: error
-  };
 } //reducers i had to split the reducers in two
 //one for single one for all due to not wanting to deal with different initial states
 //after getting to tier 5 I realize that it might not have been great to do this. 
 //I am having to repeat some code due to this, but it is what it is.
+
 
 var initialState = [];
 var campusesReducer = function campusesReducer() {
@@ -3512,18 +3488,6 @@ var campusReducer = function campusReducer() {
       return _objectSpread(_objectSpread({}, state), {}, {
         state: action.campus
       });
-
-    default:
-      return state;
-  }
-};
-var campusErrorReducer = function campusErrorReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-
-  switch (action.type) {
-    case ERROR_HANDLE:
-      return action.error;
 
     default:
       return state;
@@ -3623,19 +3587,15 @@ function createCampus(campus) {
               _yield$axios$post = _context3.sent;
               created = _yield$axios$post.data;
               dispatch(createCampusAction(created));
-              _context3.next = 13;
+              _context3.next = 11;
               break;
 
             case 8:
               _context3.prev = 8;
               _context3.t0 = _context3["catch"](0);
-              _context3.next = 12;
-              return _context3.t0;
+              console.log(_context3.t0);
 
-            case 12:
-              dispatch(errorHandle(_context3.t0));
-
-            case 13:
+            case 11:
             case "end":
               return _context3.stop();
           }
@@ -3979,7 +3939,7 @@ function createStudent(student) {
             case 8:
               _context3.prev = 8;
               _context3.t0 = _context3["catch"](0);
-              dispatch((0,_campus__WEBPACK_IMPORTED_MODULE_1__.errorHandle)(_context3.t0));
+              console.log(_context3.t0);
 
             case 11:
             case "end":
@@ -4107,8 +4067,7 @@ var rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)({
   students: _components_student__WEBPACK_IMPORTED_MODULE_2__.studentsReducer,
   campuses: _components_campus__WEBPACK_IMPORTED_MODULE_1__.campusesReducer,
   campus: _components_campus__WEBPACK_IMPORTED_MODULE_1__.campusReducer,
-  student: _components_student__WEBPACK_IMPORTED_MODULE_2__.studentReducer,
-  error: _components_campus__WEBPACK_IMPORTED_MODULE_1__.campusErrorReducer
+  student: _components_student__WEBPACK_IMPORTED_MODULE_2__.studentReducer
 });
 var store = (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(rootReducer, (0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_4__["default"], (redux_logger__WEBPACK_IMPORTED_MODULE_0___default())));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store);

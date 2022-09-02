@@ -1,12 +1,11 @@
 import React, {useState} from 'react'
 import { createCampus } from '../store/components/campus'
-import {useDispatch, useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux'
 
 
 function CreateCampus () {
-    const [newCampus, setNewCampus]=useState({})
+    const [newCampus, setNewCampus] = useState({})
     const dispatch = useDispatch()
-    const error = useSelector(state=>state.error)
 
     const handleChange = props => event => {
         setNewCampus({
@@ -14,8 +13,10 @@ function CreateCampus () {
             [props]:event.target.value
         })
     }
+
     const handleSubmit = (event) =>{
         event.preventDefault()
+
         if(newCampus.name===null){
             return (<h1>Campus name is required</h1>)
         }
@@ -25,10 +26,9 @@ function CreateCampus () {
         })
         dispatch(createCampus(newCampus))
     }
-    console.log(error)
+
     return (
         <form onSubmit={handleSubmit}>
-            {error.message ? <p>ERROR! Campus Name and Address are required</p>:null}
             <label>Campus Name:</label>
                 <input type='text' onChange={handleChange('name')} name='name'/>
             <label>Address</label>

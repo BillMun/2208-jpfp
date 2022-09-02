@@ -39,21 +39,14 @@ function SingleCampus (){
                             }}>Unregister</button>
                         </div>
                     )}</ul>:<p>No students are enrolled!</p>}
-                </div>
-                
+                </div>     
                 <div className='createContainer'>
                     <UpdateCampus campus={campus}/>
                 </div>
              </div>
             </>:null}
             </>
-
-
     )
 }
 
 export default SingleCampus
-
-            // {/* <div className='createContainer'>
-            //     <UpdateCampus campus={campus}/>
-            // </div> */}

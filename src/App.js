@@ -3,8 +3,8 @@ import {useDispatch} from 'react-redux'
 import {useEffect} from 'react'
 import { fetchAllStudents } from "./store/components/student";
 import {Routes, Route, Link} from 'react-router-dom'
-import { AllCampuses, AllStudents, NavBar, CreateStudent,
-    SingleCampus, SplashPage, SingleStudent, CreateCampus } from "./components";
+import { AllCampuses, AllStudents, NavBar,
+    SingleCampus, SplashPage, SingleStudent} from "./components";
 import { fetchAllCampuses } from "./store/components/campus";
 
 
@@ -26,8 +26,6 @@ function App(){
                 <Route path = {'/campuses'} element ={<AllCampuses/>}/>
                 <Route path = {'/campuses/:id'} element={<SingleCampus/>}/>
                 <Route path = {'/students/:id'} element= {<SingleStudent/>}/>
-                <Route path = {'/campuses/create'} element = {<CreateCampus/>}/>
-                <Route path = {'/students/create'} element = {<CreateStudent/>}/>
             </Routes>
         </div>
     )

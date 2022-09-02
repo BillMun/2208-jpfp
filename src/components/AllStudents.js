@@ -28,6 +28,7 @@ function AllStudents (){
             })
         }
     }
+    
     return(
         <div className="header">
             <select onClick = {handleClick}>

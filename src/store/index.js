@@ -1,7 +1,7 @@
 import {createStore, applyMiddleware, combineReducers} from "redux";
 import thunk from "redux-thunk";
 import loggingMiddleware from 'redux-logger'
-import {campusErrorReducer, campusesReducer, campusReducer} from "./components/campus";
+import {campusesReducer, campusReducer} from "./components/campus";
 import {studentsReducer, studentReducer} from "./components/student";
 
 const rootReducer = combineReducers({
@@ -9,7 +9,6 @@ const rootReducer = combineReducers({
     campuses:campusesReducer,
     campus:campusReducer,
     student:studentReducer,
-    error:campusErrorReducer
 })
 
 const store = createStore(rootReducer, 

@@ -6,7 +6,6 @@ import {useDispatch, useSelector} from 'react-redux'
 function CreateStudent () {
     const [newStudent, setNewStudent]=useState({})
     const campuses = useSelector(state=>state.campuses)
-    const error = useSelector(state=>state.error)
     const dispatch = useDispatch()
 
     const handleChange = props => event => {
@@ -33,7 +32,6 @@ function CreateStudent () {
 
     return (
         <form onSubmit={handleSubmit}>
-            {error.message ? <p>ERROR!! First and Last name required, must be a valid email, GPA a number</p> :null}
             <label>First Name:</label>
                 <input type='text' onChange={handleChange('firstName')} name='firstName'/>
             <label>Last Name:</label>
