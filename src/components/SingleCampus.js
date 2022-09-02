@@ -9,38 +9,51 @@ function SingleCampus (){
     const dispatch = useDispatch()
     const params = useParams()
 
-    let campus = useSelector(state=>state.campus).state
 
-    const [value, setValue] = useState('initial')
+    const [value, setValue] = useState(true)
     useEffect(()=>{
+        dispatch(fetchCampus(params.id))
         dispatch(fetchCampus(params.id))
     },[value])
 
-    return(
-        <div className='single'>
+    let campus = useSelector(state=>state.campus).state
+    
+    return(<>
             {campus ? <>
-            <h1>{campus.name}</h1>
-            <img src={campus.imageUrl} />
-            <p>{campus.description}</p>
-            <p>Located at: {campus.address}</p>
-            <UpdateCampus campus={campus}/>
-            {campus.students.length ?
-                <ul>Enrolled Students
-                    {campus.students.map(student=>
-                    <div key={student.id}>
-                    <Link key={student.id} to ={`/students/${student.id}`}>
-                        <li>{student.firstName} {student.lastName}</li>
-                    </Link>
-                    <button onClick={()=>{
-                            setValue('updated')
-                            dispatch(updateStudent({campusId:null,id:student.id}))
+            <div className='outerContainer'>
+                <div className='single'>
+                    <h1>{campus.name}</h1>
+                    <img src={campus.imageUrl} />
+                    <p>{campus.description}</p>
+                    <p>Located at: {campus.address}</p>
+                    {campus.students.length ?
+                        <ul>Enrolled Students
+                        {campus.students.map(student=>
+                        <div key={student.id}>
+                        <Link key={student.id} to ={`/students/${student.id}`}>
+                            <li>{student.firstName} {student.lastName}</li>
+                        </Link>
+                        <button onClick={()=>{
+                            setValue(!value)
+                            dispatch(updateStudent({campusId: null, id:student.id}))
                             }}>Unregister</button>
-                    </div>
-            )}</ul>:<p>No students are enrolled!</p>}
-
+                        </div>
+                    )}</ul>:<p>No students are enrolled!</p>}
+                </div>
+                
+                <div className='createContainer'>
+                    <UpdateCampus campus={campus}/>
+                </div>
+             </div>
             </>:null}
-        </div>
+            </>
+
+
     )
 }
 
 export default SingleCampus
+
+            // {/* <div className='createContainer'>
+            //     <UpdateCampus campus={campus}/>
+            // </div> */}

@@ -7,16 +7,19 @@ import DeleteCampus from "./DeleteCampus";
 function AllCampuses (){
     const campuses = useSelector(state=>state.campuses)
     return(
-        <div className = 'container'>
-        {campuses && campuses.length ?
-            campuses.map((campus) =><div className='innerContainer' key={campus.id}>
-                <Link to = {`/campuses/${campus.id}`}>
-                    <h4>Campus Name: {campus.name}</h4>
-                </Link>
-                <img className='img' src= {campus.imageUrl}/>
-                <DeleteCampus campus={campus}/>
+        <div className = 'outerContainer'>
+            <div className="contentContainer">
+                {campuses && campuses.length ?
+                campuses.map((campus) =>
+                <div className='innerContainer' key={campus.id}>
+                    <Link to = {`/campuses/${campus.id}`}>
+                        <h4>Campus Name: {campus.name}</h4>
+                    </Link>
+                    <img className='containerImg' src= {campus.imageUrl}/>
+                    <DeleteCampus campus={campus}/>
                 </div>
-            ):null }
+                ):null }
+            </div>
             <div className='createContainer'>
             <CreateCampus/>
             </div>

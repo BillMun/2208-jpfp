@@ -13,19 +13,23 @@ function SingleStudent (){
     },[dispatch])
 
     return(
-        <div className='single'>
-            {student ? <>
-            <h1>{student.firstName} {student.lastName}</h1>
-            <img src={student.imageUrl} />
-            <h4>Email: {student.email}</h4>
-            <h4>GPA: {student.gpa}</h4>
-            {student.campus ? 
-            <Link to = {`/campuses/${student.campus.id}`}>
+        <div className='outerContainer'>
+            <div className='single'>
+                {student ? <>
+                <h1>{student.firstName} {student.lastName}</h1>
+                <img src={student.imageUrl} />
+                <h4>Email: {student.email}</h4>
+                <h4>GPA: {student.gpa}</h4>
+                {student.campus ? 
+                <Link to = {`/campuses/${student.campus.id}`}>
                 <h4>Attends: {student.campus.name}</h4>
-            </Link>
-            :<h4>Has not picked a Campus yet!</h4>}
-            <UpdateStudent student={student}/>
+                </Link>
+                :<h4>Has not picked a Campus yet!</h4>}
             </>:null}
+            </div>
+            <div className='createContainer'>
+            <UpdateStudent student={student}/>
+            </div>
         </div>
     )
 }
