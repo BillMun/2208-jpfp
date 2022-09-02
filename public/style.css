@@ -44,11 +44,10 @@ img{
     float:left;
     display:flex;
     margin:10px;
-    width: 175px;
+    flex:.5;
     border: 2px;
     border-color: black;
     border-style: solid;
-    height: 320px;
     flex-wrap:wrap;
     justify-content: center;
     flex-direction: column;
