@@ -38,7 +38,6 @@ router.post('/', async (req,res,next)=>{
                 model:Campus
             }
         })
-        console.log(student)
         res.status(201).send(student)
     }catch(error){next(error)}
 })
